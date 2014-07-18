@@ -43,6 +43,13 @@ describe("Space", function() {
       testSpace.markedBy.should.equal(testPlayer);
     });
   });
+
+  describe("find", function() {
+    it("returns a space object by its coordinates", function() {
+      var testSpace = Space.create(2,3);
+      testSpace.find(2,3).should.equal(testSpace);
+    });
+  });
 });
 
 describe("Board", function() {
@@ -51,6 +58,80 @@ describe("Board", function() {
     var testBoard = Object.create(Board);
     testBoard.initialize();
     testBoard.spaces[0].xCoordinate.should.eql(1);
+    });
+  });
+
+  describe("playerMarks", function() {
+    it("given coordinates and a player, finds and marks the appropriate space", function() {
+      var testBoard = Object.create(Board);
+      testBoard.initialize();
+      var testPlayer = Player.create("X");
+      testBoard.playerMarks(1,2,testPlayer);
+      testBoard.spaces[1].markedBy.should.equal(testPlayer);
+    });
+  });
+
+  describe("threeInARow", function() {
+    it("determines when a board has 3 marks on a diagonal by the same player", function() {
+      var testBoard = Object.create(Board);
+      testBoard.initialize();
+      var testPlayer = Player.create("X");
+      testBoard.playerMarks(2,2,testPlayer);
+      testBoard.playerMarks(3,1,testPlayer);
+      testBoard.playerMarks(1,3,testPlayer);
+      testBoard.threeInARow(testPlayer).should.equal(true);
+    });
+    it("determines when a board has 3 marks in a row or column by the same player", function() {
+      var testBoard = Object.create(Board);
+      testBoard.initialize();
+      var testPlayer = Player.create("X");
+      testBoard.playerMarks(2,1,testPlayer);
+      testBoard.playerMarks(2,2,testPlayer);
+      testBoard.playerMarks(2,3,testPlayer);
+      testBoard.threeInARow(testPlayer).should.equal(true);
+    });
+  });
+});
+
+describe("Game", function() {
+  describe("initialize", function() {
+    it("creates two players", function() {
+      var testGame = Object.create(Game);
+      testGame.initialize();
+      Player.isPrototypeOf(testGame.playerOne.player).should.equal(true);
+    });
+    it("stores the names and symbols of the two players", function() {
+      var testGame = Object.create(Game);
+      testGame.initialize("moof","ali");
+      testGame.playerTwo.name.should.equal("ali");
+      testGame.playerTwo.player.symbol.should.equal("Y");
+    });
+    it("initializes the board", function() {
+      var testGame = Object.create(Game);
+      testGame.initialize();
+      Board.isPrototypeOf(testGame.board).should.equal(true);
+      testGame.board.spaces[5].yCoordinate.should.eql(3);
+    });
+  });
+  describe("whoGoesFirst", function() {
+    it("randomly decides which player starts the game", function() {
+      var testGame = Object.create(Game);
+      testGame.initialize("moof", "ali");
+      testGame.whoGoesFirst().should.equal("moof");
+    });
+  });
+  describe("changeTurns", function() {
+    it("switches from one player's turn to the other", function() {
+      var testGame = Object.create(Game);
+      testGame.initialize();
+      testGame.whoGoesFirst();
+      testGame.changeTurns();
+      testGame.playerOne.turn.should.equal(true);
+    });
+  });
+  describe("gameOver", function() {
+    it("determines whether the game is in progress, who the winner was, or if it was a draw", function() {
+
     });
   });
 });
