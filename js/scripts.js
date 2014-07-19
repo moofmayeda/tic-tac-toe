@@ -48,15 +48,14 @@ var Board = {
       });
   },
   threeInARow: function(player) {
-    var rows = [[0,4,8],[2,4,6],[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8]];
-    // rows.forEach(function(row) {
-    //   if (this.spaces[row[0]].markedBy === player && this.spaces[row[1]].markedBy === player && this.spaces[row[2]].markedBy === player) {
-    //     alert("hi");
-    //     console.log(true); /* maybe try using continue here? it's returning a sequence of trues and falses */
+    // var rows = [[0,4,8],[2,4,6],[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8]];
+    // for (var i = 0; i <= 7; i += 1) {
+    //   if (this.spaces[rows[i][0]].markedBy === player && this.spaces[rows[i][1]].markedBy === player && this.spaces[rows[i][2]].markedBy === player) {
+    //     return true; /* maybe try using continue here? it's returning a sequence of trues and falses */
     //   } else {
-    //     console.log(false);
-    //   }
-    // });
+    //     return false;
+    //   };
+    // };
     if (this.spaces[0].markedBy === player && this.spaces[4].markedBy === player && this.spaces[8].markedBy === player) {
       return true;
     } else if (this.spaces[2].markedBy === player && this.spaces[4].markedBy === player && this.spaces[6].markedBy === player) {
@@ -102,6 +101,26 @@ var Game = {
     } else {
       this.playerOne.turn = true;
       this.playerTwo.turn = false
+    }
+  },
+  howManyTurns: function() {
+    var turns = 0;
+    for (var i = 0; i <= 8; i += 1) {
+      if (this.board.spaces[i].markedBy === this.playerOne.player || this.board.spaces[i].markedBy === this.playerTwo.player) {
+        turns += 1;
+      }
+    }
+    return turns;
+  },
+  gameOver: function() {
+    if (this.board.threeInARow(this.playerOne.player)) {
+      return this.playerOne.name;
+    } else if (this.board.threeInARow(this.playerTwo.player)) {
+      return this.playerTwo.name;
+    } else if (this.howManyTurns() === 9) {
+      return "draw";
+    } else {
+      return "in progress";
     }
   }
 }

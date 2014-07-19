@@ -129,9 +129,53 @@ describe("Game", function() {
       testGame.playerOne.turn.should.equal(true);
     });
   });
+  describe("howManyTurns", function() {
+    it("counts the number of times spaces have been marked", function() {
+      var testGame = Object.create(Game);
+      testGame.initialize();
+      testGame.board.playerMarks(2,1,testGame.playerOne.player);
+      testGame.board.playerMarks(3,1,testGame.playerTwo.player);
+      testGame.board.playerMarks(1,1,testGame.playerOne.player);
+      testGame.board.playerMarks(1,2,testGame.playerTwo.player);
+      testGame.howManyTurns().should.equal(4);
+    });
+  });
   describe("gameOver", function() {
-    it("determines whether the game is in progress, who the winner was, or if it was a draw", function() {
-
+    it("determines who the winner was", function() {
+    // it("determines whether the game is in progress, who the winner was, or if it was a draw", function() {
+      var testGame = Object.create(Game);
+      testGame.initialize("moof", "ali");
+      testGame.board.playerMarks(2,1,testGame.playerOne.player);
+      testGame.board.playerMarks(3,1,testGame.playerOne.player);
+      testGame.board.playerMarks(1,1,testGame.playerOne.player);
+      testGame.gameOver().should.equal("moof");
+    });
+    it("determines if the game is a draw", function() {
+      var testGame = Object.create(Game);
+      testGame.initialize("moof", "ali");
+      testGame.board.playerMarks(1,1,testGame.playerTwo.player);
+      testGame.board.playerMarks(1,2,testGame.playerOne.player);
+      testGame.board.playerMarks(1,3,testGame.playerTwo.player);
+      testGame.board.playerMarks(2,1,testGame.playerOne.player);
+      testGame.board.playerMarks(2,2,testGame.playerOne.player);
+      testGame.board.playerMarks(2,3,testGame.playerTwo.player);
+      testGame.board.playerMarks(3,1,testGame.playerOne.player);
+      testGame.board.playerMarks(3,2,testGame.playerTwo.player);
+      testGame.board.playerMarks(3,3,testGame.playerOne.player);
+      testGame.gameOver().should.equal("draw");
+    });
+    it("determines if the game is still in progress", function() {
+      var testGame = Object.create(Game);
+      testGame.initialize("moof", "ali");
+      testGame.board.playerMarks(1,1,testGame.playerTwo.player);
+      testGame.board.playerMarks(1,2,testGame.playerOne.player);
+      testGame.board.playerMarks(1,3,testGame.playerTwo.player);
+      testGame.board.playerMarks(2,1,testGame.playerOne.player);
+      testGame.board.playerMarks(2,2,testGame.playerOne.player);
+      testGame.board.playerMarks(2,3,testGame.playerTwo.player);
+      testGame.board.playerMarks(3,1,testGame.playerOne.player);
+      testGame.board.playerMarks(3,2,testGame.playerTwo.player);
+      testGame.gameOver().should.equal("in progress");
     });
   });
 });
