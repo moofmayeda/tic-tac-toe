@@ -142,13 +142,12 @@ describe("Game", function() {
   });
   describe("gameOver", function() {
     it("determines who the winner was", function() {
-    // it("determines whether the game is in progress, who the winner was, or if it was a draw", function() {
       var testGame = Object.create(Game);
       testGame.initialize("moof", "ali");
-      testGame.board.playerMarks(2,1,testGame.playerOne.player);
-      testGame.board.playerMarks(3,1,testGame.playerOne.player);
-      testGame.board.playerMarks(1,1,testGame.playerOne.player);
-      testGame.gameOver().should.equal("moof");
+      testGame.board.playerMarks(2,1,testGame.playerTwo.player);
+      testGame.board.playerMarks(3,1,testGame.playerTwo.player);
+      testGame.board.playerMarks(1,1,testGame.playerTwo.player);
+      testGame.gameOver().should.equal("ali");
     });
     it("determines if the game is a draw", function() {
       var testGame = Object.create(Game);

@@ -1,0 +1,17 @@
+#turn-display {
+	display: none;
+}
+
+#win-result {
+	display: none;
+}
+
+#draw-result {
+	display: none;
+}
+
+.space-buttons {
+	height: 100px;
+	width: 100px;
+	font-size: 50px;
+}

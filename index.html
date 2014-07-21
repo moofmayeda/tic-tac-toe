@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<script TYPE="text/javascript" src="js/jquery-1.11.1.js"></script>
+	<script type="text/javascript" src="js/scripts.js"></script>
+	<title>Tic-Tac-Toe</title>
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<h1>Tic Tac Toe</h1>
+			<h2>Play the classic game with a friend</h2>
+			<form id="new-game">
+				<input id="player-one-name" type="text" placeholder="Player one's name">
+				<input id="player-two-name" type="text" placeholder="Player two's name">
+				<button type="submit" class="btn btn-primary">Start game</button>
+			</form>
+		</div>
+		<div class="row" id="turn-display">
+			<h2><span id="player-turn-symbol"></span>: <span id="whose-turn"></span>'s turn</h2>
+		</div>
+		<div class="row" id="win-result">
+			<h2><span id="winner-name"></span> wins the game!</h2>
+		</div>
+		<div class="row" id="draw-result">
+			<h2>It's a tie! You're both winners.</h2>
+		</div>
+		<div class="row">
+			<table class="table">
+				<thead>
+				<tbody>
+					<tr>
+						<td><span id="space-2" class="btn btn-primary space-buttons"></span></td>
+						<td><span id="space-5" class="btn btn-primary space-buttons"></span></td>
+						<td><span id="space-8" class="btn btn-primary space-buttons"></span></td>
+					</tr>
+					<tr>
+						<td><span id="space-1" class="btn btn-primary space-buttons"></span></td>
+						<td><span id="space-4" class="btn btn-primary space-buttons"></span></td>
+						<td><span id="space-7" class="btn btn-primary space-buttons"></span></td>
+					</tr>
+					<tr>
+						<td><span id="space-0" class="btn btn-primary space-buttons"></span></td>
+						<td><span id="space-3" class="btn btn-primary space-buttons"></span></td>
+						<td><span id="space-6" class="btn btn-primary space-buttons"></span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</body>
+</html>

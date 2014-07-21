@@ -81,7 +81,7 @@ var Game = {
     this.board = Object.create(Board);
     this.board.initialize();
     this.playerOne = {name: playerOneName, player: Player.create("X"), turn: true};
-    this.playerTwo = {name: playerTwoName, player: Player.create("Y"), turn: false};
+    this.playerTwo = {name: playerTwoName, player: Player.create("O"), turn: false};
   },
   whoGoesFirst: function() {
     if (Math.random() >= .5) {
@@ -125,11 +125,127 @@ var Game = {
   }
 }
 
+var markCheckAndChange = function(x,y,game) {
+  if (game.playerOne.turn) {
+    game.board.playerMarks(x,y,game.playerOne.player);
+  } else {
+    game.board.playerMarks(x,y,game.playerTwo.player);
+  }
+  if(game.gameOver() === "draw") {
+    $("#draw-result").show();
+  } else if (game.gameOver() !== "in progress") {
+    $("#win-result").show();
+    $("#winner-name").text(game.gameOver());
+  }
+  game.changeTurns();
+  if (game.playerOne.turn) {
+    $("#player-turn-symbol").text(game.playerOne.player.symbol);
+    $("#whose-turn").text(game.playerOne.name);
+  } else {
+    $("#player-turn-symbol").text(game.playerTwo.player.symbol);
+    $("#whose-turn").text(game.playerTwo.name);
+  };
+}
+
 $(document).ready(function() {
+  var currentGame;
   $("form#new-game").submit(function(event) {
-    event.preventDefault();
     var playerOneName = $("input#player-one-name").val();
     var playerTwoName = $("input#player-two-name").val();
+    $("input#player-one-name").val("");
+    $("input#player-two-name").val("");
+    $(".space-buttons").empty();
+    $("#win-result").hide();
+    $("#draw-result").hide();
+    var newGame = {};
+    newGame = Object.create(Game);
+    newGame.initialize(playerOneName, playerTwoName);
+    currentGame = newGame;
+    currentGame.whoGoesFirst();
+    console.log(currentGame.playerOne.turn);
+    console.log(currentGame.playerTwo.turn);
+    if (currentGame.playerOne.turn) {
+      $("#player-turn-symbol").text(currentGame.playerOne.player.symbol);
+      $("#whose-turn").text(currentGame.playerOne.name);
+    } else {
+      $("#player-turn-symbol").text(currentGame.playerTwo.player.symbol);
+      $("#whose-turn").text(currentGame.playerTwo.name);
+    };
+    $("#turn-display").show();
+    
+    $("#space-0").click(function(event) {
+      if (currentGame.playerOne.turn) {
+        $("#space-0").text(currentGame.playerOne.player.symbol);
+      } else  {
+        $("#space-0").text(currentGame.playerTwo.player.symbol);
+      }
+      markCheckAndChange(1,1,currentGame);
+    });
+    $("#space-1").click(function(event) {
+      if (currentGame.playerOne.turn) {
+        $("#space-1").text(currentGame.playerOne.player.symbol);
+      } else  {
+        $("#space-1").text(currentGame.playerTwo.player.symbol);
+      }
+      markCheckAndChange(1,2,currentGame);
+    });
+    $("#space-2").click(function(event) {
+      if (currentGame.playerOne.turn) {
+        $("#space-2").text(currentGame.playerOne.player.symbol);
+      } else  {
+        $("#space-2").text(currentGame.playerTwo.player.symbol);
+      }
+      markCheckAndChange(1,3,currentGame);
+    });
+    $("#space-3").click(function(event) {
+      if (currentGame.playerOne.turn) {
+        $("#space-3").text(currentGame.playerOne.player.symbol);
+      } else  {
+        $("#space-3").text(currentGame.playerTwo.player.symbol);
+      }
+      markCheckAndChange(2,1,currentGame);
+    });
+    $("#space-4").click(function(event) {
+      if (currentGame.playerOne.turn) {
+        $("#space-4").text(currentGame.playerOne.player.symbol);
+      } else  {
+        $("#space-4").text(currentGame.playerTwo.player.symbol);
+      }
+      markCheckAndChange(2,2,currentGame);
+    });
+    $("#space-5").click(function(event) {
+      if (currentGame.playerOne.turn) {
+        $("#space-5").text(currentGame.playerOne.player.symbol);
+      } else  {
+        $("#space-5").text(currentGame.playerTwo.player.symbol);
+      }
+      markCheckAndChange(2,3,currentGame);
+    });
+    $("#space-6").click(function(event) {
+      if (currentGame.playerOne.turn) {
+        $("#space-6").text(currentGame.playerOne.player.symbol);
+      } else  {
+        $("#space-6").text(currentGame.playerTwo.player.symbol);
+      }
+      markCheckAndChange(3,1,currentGame);
+    });
+    $("#space-7").click(function(event) {
+      if (currentGame.playerOne.turn) {
+        $("#space-7").text(currentGame.playerOne.player.symbol);
+      } else  {
+        $("#space-7").text(currentGame.playerTwo.player.symbol);
+      }
+      markCheckAndChange(3,2,currentGame);
+    });
+    $("#space-8").click(function(event) {
+      if (currentGame.playerOne.turn) {
+        $("#space-8").text(currentGame.playerOne.player.symbol);
+      } else  {
+        $("#space-8").text(currentGame.playerTwo.player.symbol);
+      }
+      markCheckAndChange(3,3,currentGame);
+    });
 
+    event.preventDefault();
   });
 });
