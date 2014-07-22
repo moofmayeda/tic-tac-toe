@@ -104,7 +104,7 @@ describe("Game", function() {
       var testGame = Object.create(Game);
       testGame.initialize("moof","ali");
       testGame.playerTwo.name.should.equal("ali");
-      testGame.playerTwo.player.symbol.should.equal("Y");
+      testGame.playerTwo.player.symbol.should.equal("O");
     });
     it("initializes the board", function() {
       var testGame = Object.create(Game);

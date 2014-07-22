@@ -48,31 +48,11 @@ var Board = {
       });
   },
   threeInARow: function(player) {
-    // var rows = [[0,4,8],[2,4,6],[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8]];
-    // for (var i = 0; i <= 7; i += 1) {
-    //   if (this.spaces[rows[i][0]].markedBy === player && this.spaces[rows[i][1]].markedBy === player && this.spaces[rows[i][2]].markedBy === player) {
-    //     return true; /* maybe try using continue here? it's returning a sequence of trues and falses */
-    //   } else {
-    //     return false;
-    //   };
-    // };
-    if (this.spaces[0].markedBy === player && this.spaces[4].markedBy === player && this.spaces[8].markedBy === player) {
-      return true;
-    } else if (this.spaces[2].markedBy === player && this.spaces[4].markedBy === player && this.spaces[6].markedBy === player) {
-      return true;
-    } else if (this.spaces[0].markedBy === player && this.spaces[1].markedBy === player && this.spaces[2].markedBy === player) {
-      return true;
-    } else if (this.spaces[3].markedBy === player && this.spaces[4].markedBy === player && this.spaces[5].markedBy === player) {
-      return true;
-    } else if (this.spaces[6].markedBy === player && this.spaces[7].markedBy === player && this.spaces[8].markedBy === player) {
-      return true;
-    } else if (this.spaces[0].markedBy === player && this.spaces[3].markedBy === player && this.spaces[6].markedBy === player) {
-      return true;
-    } else if (this.spaces[1].markedBy === player && this.spaces[4].markedBy === player && this.spaces[7].markedBy === player) {
-      return true;
-    } else if (this.spaces[2].markedBy === player && this.spaces[5].markedBy === player && this.spaces[8].markedBy === player) {
-      return true;
-    }
+    var rows = [[0,4,8],[2,4,6],[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8]];
+    var board = this;
+    return rows.some(function(winningCombo) {
+      return (board.spaces[winningCombo[0]].markedBy === player && board.spaces[winningCombo[1]].markedBy === player && board.spaces[winningCombo[2]].markedBy === player);
+    });
   }
 }
 
@@ -95,13 +75,7 @@ var Game = {
     }
   },
   changeTurns: function() {
-    if (this.playerOne.turn) {
-      this.playerOne.turn = false;
-      this.playerTwo.turn = true;
-    } else {
-      this.playerOne.turn = true;
-      this.playerTwo.turn = false
-    }
+    (this.playerOne.turn)? this.playerOne.turn = false /*&& this.playerTwo.turn = true*/ : this.playerOne.turn = true /*&& this.playerTwo.turn = false*/;
   },
   howManyTurns: function() {
     var turns = 0;
@@ -162,8 +136,6 @@ $(document).ready(function() {
     newGame.initialize(playerOneName, playerTwoName);
     currentGame = newGame;
     currentGame.whoGoesFirst();
-    console.log(currentGame.playerOne.turn);
-    console.log(currentGame.playerTwo.turn);
     if (currentGame.playerOne.turn) {
       $("#player-turn-symbol").text(currentGame.playerOne.player.symbol);
       $("#whose-turn").text(currentGame.playerOne.name);
@@ -172,7 +144,7 @@ $(document).ready(function() {
       $("#whose-turn").text(currentGame.playerTwo.name);
     };
     $("#turn-display").show();
-    
+
     $("#space-0").click(function(event) {
       if (currentGame.playerOne.turn) {
         $("#space-0").text(currentGame.playerOne.player.symbol);
