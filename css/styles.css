@@ -1,17 +1,32 @@
 #turn-display {
 	display: none;
+	text-align: center;
 }
 
 #win-result {
 	display: none;
+	text-align: center;
 }
 
 #draw-result {
 	display: none;
+	text-align: center;
 }
 
 .space-buttons {
-	height: 100px;
-	width: 100px;
+	height: 150px;
+	width: 150px;
 	font-size: 50px;
+}
+
+.table {
+	text-align: center;
+}
+
+#play-again {
+	display: none;
+}
+
+#wrapper {
+	text-align: center;
 }

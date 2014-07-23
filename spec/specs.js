@@ -35,15 +35,6 @@ describe("Space", function() {
     });
   });
 
-  describe("markBy", function() {
-    it("lets a player mark the space", function() {
-      var testPlayer = Player.create("X");
-      var testSpace = Space.create(1, 2);
-      testSpace.markBy(testPlayer);
-      testSpace.markedBy.should.equal(testPlayer);
-    });
-  });
-
   describe("find", function() {
     it("returns a space object by its coordinates", function() {
       var testSpace = Space.create(2,3);
@@ -81,6 +72,7 @@ describe("Board", function() {
       testBoard.playerMarks(1,3,testPlayer);
       testBoard.threeInARow(testPlayer).should.equal(true);
     });
+    
     it("determines when a board has 3 marks in a row or column by the same player", function() {
       var testBoard = Object.create(Board);
       testBoard.initialize();
@@ -100,12 +92,14 @@ describe("Game", function() {
       testGame.initialize();
       Player.isPrototypeOf(testGame.playerOne.player).should.equal(true);
     });
+    
     it("stores the names and symbols of the two players", function() {
       var testGame = Object.create(Game);
       testGame.initialize("moof","ali");
       testGame.playerTwo.name.should.equal("ali");
       testGame.playerTwo.player.symbol.should.equal("O");
     });
+    
     it("initializes the board", function() {
       var testGame = Object.create(Game);
       testGame.initialize();
@@ -113,6 +107,7 @@ describe("Game", function() {
       testGame.board.spaces[5].yCoordinate.should.eql(3);
     });
   });
+  
   describe("whoGoesFirst", function() {
     it("randomly decides which player starts the game", function() {
       var testGame = Object.create(Game);
@@ -120,6 +115,7 @@ describe("Game", function() {
       testGame.whoGoesFirst().should.equal("moof");
     });
   });
+  
   describe("changeTurns", function() {
     it("switches from one player's turn to the other", function() {
       var testGame = Object.create(Game);
@@ -129,6 +125,7 @@ describe("Game", function() {
       testGame.playerOne.turn.should.equal(true);
     });
   });
+  
   describe("howManyTurns", function() {
     it("counts the number of times spaces have been marked", function() {
       var testGame = Object.create(Game);
@@ -140,6 +137,7 @@ describe("Game", function() {
       testGame.howManyTurns().should.equal(4);
     });
   });
+  
   describe("gameOver", function() {
     it("determines who the winner was", function() {
       var testGame = Object.create(Game);
@@ -149,6 +147,7 @@ describe("Game", function() {
       testGame.board.playerMarks(1,1,testGame.playerTwo.player);
       testGame.gameOver().should.equal("ali");
     });
+  
     it("determines if the game is a draw", function() {
       var testGame = Object.create(Game);
       testGame.initialize("moof", "ali");
@@ -163,6 +162,7 @@ describe("Game", function() {
       testGame.board.playerMarks(3,3,testGame.playerOne.player);
       testGame.gameOver().should.equal("draw");
     });
+  
     it("determines if the game is still in progress", function() {
       var testGame = Object.create(Game);
       testGame.initialize("moof", "ali");
