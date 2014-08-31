@@ -59,8 +59,6 @@ var Game = {
     this.board.initialize();
     this.playerOne = {name: playerOneName, player: Player.create("X"), turn: true};
     this.playerTwo = {name: playerTwoName, player: Player.create("O")};
-  },
-  whoGoesFirst: function() {
     if (Math.random() >= .5) {
       this.playerOne.turn = true;
       return this.playerOne.name;
@@ -132,7 +130,6 @@ $(document).ready(function() {
     $("#draw-result").hide();
     newGame = Object.create(Game);
     newGame.initialize(playerOneName, playerTwoName);
-    newGame.whoGoesFirst();
     if (newGame.playerOne.turn) {
       $("#player-turn-symbol").text(newGame.playerOne.player.symbol);
       $("#whose-turn").text(newGame.playerOne.name);
