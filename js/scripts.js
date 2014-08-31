@@ -118,6 +118,17 @@ var markCheckAndChange = function(x,y,game) {
   };
 }
 
+var clickSpace = function(spaceID, x, y) {
+  $(spaceID).click(function(event) {
+      if (newGame.playerOne.turn) {
+        $(spaceID).text(newGame.playerOne.player.symbol);
+      } else {
+        $(spaceID).text(newGame.playerTwo.player.symbol);
+      }
+      markCheckAndChange(x,y,newGame);
+  });
+}
+
 $(document).ready(function() {
   $("form#new-game").submit(function(event) {
     $(".jumbotron").hide();
@@ -139,78 +150,16 @@ $(document).ready(function() {
     };
     $("#turn-display").show();
 
-    $("#space-0").click(function(event) {
-      if (newGame.playerOne.turn) {
-        $("#space-0").text(newGame.playerOne.player.symbol);
-      } else  {
-        $("#space-0").text(newGame.playerTwo.player.symbol);
-      }
-      markCheckAndChange(1,1,newGame);
-    });
-    $("#space-1").click(function(event) {
-      if (newGame.playerOne.turn) {
-        $("#space-1").text(newGame.playerOne.player.symbol);
-      } else  {
-        $("#space-1").text(newGame.playerTwo.player.symbol);
-      }
-      markCheckAndChange(1,2,newGame);
-    });
-    $("#space-2").click(function(event) {
-      if (newGame.playerOne.turn) {
-        $("#space-2").text(newGame.playerOne.player.symbol);
-      } else  {
-        $("#space-2").text(newGame.playerTwo.player.symbol);
-      }
-      markCheckAndChange(1,3,newGame);
-    });
-    $("#space-3").click(function(event) {
-      if (newGame.playerOne.turn) {
-        $("#space-3").text(newGame.playerOne.player.symbol);
-      } else  {
-        $("#space-3").text(newGame.playerTwo.player.symbol);
-      }
-      markCheckAndChange(2,1,newGame);
-    });
-    $("#space-4").click(function(event) {
-      if (newGame.playerOne.turn) {
-        $("#space-4").text(newGame.playerOne.player.symbol);
-      } else  {
-        $("#space-4").text(newGame.playerTwo.player.symbol);
-      }
-      markCheckAndChange(2,2,newGame);
-    });
-    $("#space-5").click(function(event) {
-      if (newGame.playerOne.turn) {
-        $("#space-5").text(newGame.playerOne.player.symbol);
-      } else  {
-        $("#space-5").text(newGame.playerTwo.player.symbol);
-      }
-      markCheckAndChange(2,3,newGame);
-    });
-    $("#space-6").click(function(event) {
-      if (newGame.playerOne.turn) {
-        $("#space-6").text(newGame.playerOne.player.symbol);
-      } else  {
-        $("#space-6").text(newGame.playerTwo.player.symbol);
-      }
-      markCheckAndChange(3,1,newGame);
-    });
-    $("#space-7").click(function(event) {
-      if (newGame.playerOne.turn) {
-        $("#space-7").text(newGame.playerOne.player.symbol);
-      } else  {
-        $("#space-7").text(newGame.playerTwo.player.symbol);
-      }
-      markCheckAndChange(3,2,newGame);
-    });
-    $("#space-8").click(function(event) {
-      if (newGame.playerOne.turn) {
-        $("#space-8").text(newGame.playerOne.player.symbol);
-      } else  {
-        $("#space-8").text(newGame.playerTwo.player.symbol);
-      }
-      markCheckAndChange(3,3,newGame);
-    });
+    clickSpace("#space-0", 1, 1);
+    clickSpace("#space-1", 1, 2);
+    clickSpace("#space-2", 1, 3);
+    clickSpace("#space-3", 2, 1);
+    clickSpace("#space-4", 2, 2);
+    clickSpace("#space-5", 2, 3);
+    clickSpace("#space-6", 3, 1);
+    clickSpace("#space-7", 3, 2);
+    clickSpace("#space-8", 3, 3);
+
     $("#play-again").click(function() {
       location.reload();
     });
